@@ -22,7 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
 
         return view('tasks',[
-            'tasks' => Task:: orderBy('created_at', 'asc')->get()
+            'tasks' => Task:: orderBy('created_at', 'desc')->get()
             ]);
     });
 
@@ -33,6 +33,8 @@ Route::group(['middleware' => ['web']], function () {
        
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'email'=> 'email|unique,email'
+           
         ]);
         // dump($validator);die;
         if ($validator->fails()) {
@@ -48,6 +50,9 @@ Route::group(['middleware' => ['web']], function () {
         $task = new Task;
    
         $task->name = $request->name;
+        $task->email = $request->email;
+        $task->phone = $request->phone;
+        $task->address = $request->address;
     
         $task->save(); 
 
