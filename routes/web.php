@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web']], function () {
        
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'email'=> 'email|unique,email'
+            'email'=> 'required|unique:tasks|email|max:100',
            
         ]);
         // dump($validator);die;
